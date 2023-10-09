@@ -10,4 +10,4 @@ struct TwoVecs {
     y: Vec<f32>,
 }
 ```
-... then reading the data back from file and deserializing, takes less than second, and the resulting file is just 8MB.
+... then reading the data back from file and deserializing, takes less than a second, and the resulting file is just 8MB.
