@@ -21,8 +21,6 @@ fn main() {
         my_struct.y.push((i + 1) as f32);
     }
 
-    println!("{:?}", my_struct.x[0]);
-
     // write the data to a file
     let mut file_to_write_to = BufWriter::new(File::create("big.dat").unwrap());
     serialize_into(&mut file_to_write_to, &my_struct).unwrap();
