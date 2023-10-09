@@ -13,7 +13,7 @@ struct TwoVecs {
 // See 'big' branch for tests of larger data structure.
 
 fn main() {
-    // define a large amount of data in a MyStruct struct
+    // define a large amount of data in a TwoVecs struct
     let mut my_struct = TwoVecs{x : vec![], y : vec![]};
 
     for i in 0..1000000 {
