@@ -4,31 +4,31 @@ use bincode::serialize_into;
 use std::io::{BufReader, BufWriter};
 
 #[derive(Serialize, Deserialize, PartialEq, Debug)]
-struct Entity {
+struct Pair {
     x: f32,
     y: f32,
 }
 
 #[derive(Serialize, Deserialize, PartialEq, Debug)]
-struct World(Vec<Entity>);
+struct MyStruct(Vec<Pair>);
 
-// minimal example of serializing to binary, writing to file, opening & reading the file, and deserializing the data.
-// see other branch for tests of larger data structure
+// Minimal example of serializing to binary, writing to file, opening & reading the file, and deserializing the data.
+// See 'big' branch for tests of larger data structure.
 
 fn main() {
-    // define some data in a World struct
-    let m = World(vec![Entity { x: 0.0, y: 8.0 }, Entity { x: 10.0, y: 20.5 }]);
+    // define some data in a MyStruct struct
+    let my_struct = MyStruct(vec![Pair { x: 0.0, y: 8.0 }, Pair { x: 10.0, y: 20.5 }]);
 
     // write the data to a file
-    let mut f = BufWriter::new(File::create("foo.dat").unwrap());
-    serialize_into(&mut f, &m).unwrap();
+    let mut file_to_write_to = BufWriter::new(File::create("foo.dat").unwrap());
+    serialize_into(&mut file_to_write_to, &my_struct).unwrap();
 
     // drop the open file from scope
-    drop(f);
+    drop(file_to_write_to);
 
     // read the data back from the file
-    let mut g = BufReader::new(File::open("foo.dat").unwrap());
-    let decoded : World = bincode::deserialize_from(&mut g).unwrap();
+    let mut file_to_read_from = BufReader::new(File::open("foo.dat").unwrap());
+    let deserialized_struct : MyStruct = bincode::deserialize_from(&mut file_to_read_from).unwrap();
 
-    println!("{:?}", decoded)
+    println!("{:?}", deserialized_struct)
 }
